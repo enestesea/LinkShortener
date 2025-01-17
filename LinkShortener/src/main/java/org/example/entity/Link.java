@@ -5,7 +5,7 @@ public class Link {
     private final String shortUrl;
     private final long creationTime;
     private final long expiryTime;
-    private final int maxClicks;
+    private int maxClicks;
     private int clicks;
 
     public Link(String originalUrl, String shortUrl, long expiryTime, int maxClicks) {
@@ -39,5 +39,9 @@ public class Link {
 
     public int getClicks() {
         return clicks;
+    }
+
+    public void setMaxClicks(int maxClicks) {
+        this.maxClicks = maxClicks;
     }
 }

@@ -15,8 +15,8 @@ public class Main {
         System.out.println("Your User ID: " + user.getUserId());
 
         while (true) {
-            System.out.println("1. Shorten URL\n2. Redirect\n3. Exit");
-            int choice =- 1;
+            System.out.println("1. Shorten URL\n2. Redirect\n3. Update max clicks\n4. Delete Link\n5. Exit");
+            int choice = -1;
             try {
                 choice = scanner.nextInt();
             }
@@ -49,12 +49,24 @@ public class Main {
                     break;
 
                 case 3:
+                    System.out.println("Enter short URL to update max clicks:");
+                    String shortUrlToUpdate = scanner.nextLine();
+                    System.out.println("Enter new max clicks:");
+                    int newMaxClicks = scanner.nextInt();
+                    scanner.nextLine();
+                    service.updateMaxClicks(user, shortUrlToUpdate, newMaxClicks);
+                    break;
+
+                case 4:
+                    System.out.println("Enter short URL to delete:");
+                    String shortUrlToDelete = scanner.nextLine();
+                    service.deleteLink(user, shortUrlToDelete);
+                    break;
+
+                case 5:
                     service.shutdown();
                     System.out.println("Goodbye!");
                     return;
-
-                default:
-                    System.out.println("Invalid choice.");
             }
         }
     }

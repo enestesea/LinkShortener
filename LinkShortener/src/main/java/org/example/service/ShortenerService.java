@@ -19,6 +19,12 @@ public interface ShortenerService {
     // Return all the links
     Map<String, Link> getAllLinks();
 
-    // Shuts down the service
+    // Shut down  service
     void shutdown();
+
+    // Update max clicks
+    void updateMaxClicks(User user, String shortUrl, int newMaxClicks);
+
+    // Delete link
+    void deleteLink(User user, String shortUrl);
 }

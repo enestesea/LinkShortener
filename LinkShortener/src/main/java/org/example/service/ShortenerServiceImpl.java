@@ -49,7 +49,7 @@ public class ShortenerServiceImpl implements ShortenerService {
     private void startCleanupTask() {
         executor.scheduleAtFixedRate(() -> {
             allLinks.values().removeIf(Link::isExpired);
-        }, 1, 1, TimeUnit.HOURS);
+        }, 1, 1, TimeUnit.SECONDS);
     }
 
     public User registerUser() {
@@ -95,5 +95,24 @@ public class ShortenerServiceImpl implements ShortenerService {
 
     public void shutdown() {
         executor.shutdown();
+    }
+
+    public void updateMaxClicks(User user, String shortUrl, int newMaxClicks) {
+        Link link = user.getLink(shortUrl);
+        if (link != null) {
+            link.setMaxClicks(newMaxClicks);
+            System.out.println("Max clicks updated to: " + newMaxClicks);
+        } else {
+            System.out.println("Link not found.");
+        }
+    }
+
+    public void deleteLink(User user, String shortUrl) {
+        if (user.getLinks().containsKey(shortUrl)) {
+            user.getLinks().remove(shortUrl);
+            System.out.println("Link deleted: " + shortUrl);
+        } else {
+            System.out.println("Link not found.");
+        }
     }
 }
